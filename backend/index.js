@@ -17,28 +17,32 @@ app.set("trust proxy", 1);
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
-  "http://localhost:5175",   // 👈 ADD THIS
+  "http://localhost:5175",
   "https://barber-app-1-f0en.onrender.com"
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // allow mobile apps / postman
-      if (!origin) return callback(null, true);
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow Postman / mobile apps
+    if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.log("❌ Blocked by CORS:", origin);
+    return callback(null, false); // ✅ don't throw error
+  },
+  credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
-);
+  
+}));
+  
+// 🔥 VERY IMPORTANT FOR PREFLIGHT
+app.options("*", cors());
+
 
 
 app.options("*", cors());
