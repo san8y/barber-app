@@ -18,7 +18,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:5175",   // 👈 ADD THIS
-  "https://barber-app-r2tt.onrender.com"
+  "https://barber-app-1-f0en.onrender.com"
 ];
 
 app.use(
@@ -34,10 +34,17 @@ app.use(
       }
     },
     credentials: true,
+    
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+
+app.options("*", cors());
+
+
+
 
 /* 📦 Middleware */
 app.use(express.json());
