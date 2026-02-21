@@ -18,7 +18,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:5175",
-  "https://barber-app-1-f0en.onrender.com"
+  "https://barber-app-dcia.onrender.com"
 ];
 
 app.use(cors({
